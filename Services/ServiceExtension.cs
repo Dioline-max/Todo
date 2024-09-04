@@ -20,6 +20,8 @@ namespace Todo.Services
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+            builder.AddSignInManager<SignInManager<AppUser>>();
         }
     }
 }

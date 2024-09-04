@@ -10,6 +10,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.ConfigureIdentity();
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 builder.Services.AddRazorPages();
 var app = builder.Build();
 
@@ -26,11 +28,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
 // app.MapControllerRoute(
 //     name: "default",
 //     pattern: "{controller=Home}/{action=Display}/{id?}");
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorPages();
 app.Run();

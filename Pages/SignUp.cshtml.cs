@@ -15,9 +15,11 @@ namespace Todo.Pages
     {
 
         private readonly UserManager<AppUser> _userManager;
-        public SignUp(UserManager<AppUser> userManager)
+        private readonly SignInManager<AppUser> _signInManager;
+        public SignUp(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         [BindProperty(SupportsGet=true)]
         public RegisterRequestDto registerRequestDto { get; set; }
@@ -40,10 +42,12 @@ namespace Todo.Pages
             var createdUser = await _userManager.CreateAsync(user, registerRequestDto.Password);
             if(!createdUser.Succeeded)
             {
+            
                 return StatusCode(500,createdUser.Errors);
             }
 
             await _userManager.AddToRoleAsync(user, "User");
+            await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToPage("Login");
         }
 

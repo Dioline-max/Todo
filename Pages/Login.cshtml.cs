@@ -13,10 +13,12 @@ namespace Todo.Pages
     public class Login : PageModel
     {
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public Login(SignInManager<AppUser> signInManager)
+        public Login(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -43,16 +45,14 @@ namespace Todo.Pages
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync()
         {
+            var claims = User.Claims;
+            var user = await _userManager.FindByEmailAsync(Input.Email);
+            Console.Write(Input.Email);
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    return LocalRedirect("Display");
-                }
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                await _signInManager.SignInAsync(user, isPersistent:false);
             }
 
             return RedirectToPage("Display");
