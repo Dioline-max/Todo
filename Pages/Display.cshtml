@@ -1,0 +1,46 @@
+@page
+@model Todo.Pages.Display; 
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<section id="display">
+    <h2>Welcome @Model.UserName </h2>
+    <br/>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Completed</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var todo in Model.Todos)
+            {
+                <tr>
+                    <td>@todo.Title</td>
+                    <td>@todo.Description</td>
+                    <td>@(todo.IsComplete ? "Yes" : "No")</td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@todo.Id">
+                            <button asp-page="EditToDo" asp-route-id="@todo.Id" class="btn btn-secondary">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@todo.Id" >
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" asp-route-id="@todo.Id" >
+                            <button asp-page="EditToDo" asp-route-id="@todo.Id" class="btn btn-success">Done</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section> 

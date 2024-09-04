@@ -1,0 +1,32 @@
+@page
+@using Todo.Infrastructure;
+@model Todo.Pages.SignUp;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+<section id="signup">
+    <div class="form-wrapper">
+        <h2> SignUp</h2>
+        <form method="post" asp-page="/SignUp"  asp-validation-summary="All">
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+             <div class="form-group">
+                <label asp-for="registerRequestDto.UserName">Name</label>
+                <input asp-for="registerRequestDto.UserName" class="form-control" />
+                <span asp-validation-for="registerRequestDto.UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="registerRequestDto.Email">Email</label>
+                <input asp-for="registerRequestDto.Email" class="form-control" />
+                <span asp-validation-for="registerRequestDto.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="registerRequestDto.Password">Password</label>
+                <input asp-for="registerRequestDto.Password" class="form-control" />
+                <span asp-validation-for="registerRequestDto.Password" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">SignUp</button>
+            <h1>@Model.registerRequestDto.Password</h1>
+        </form>
+    </div>
+</section>

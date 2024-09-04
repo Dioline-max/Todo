@@ -1,0 +1,30 @@
+@page
+@using Todo.Infrastructure
+@model Todo.Pages.Create;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<h2> My Todos</h2>
+<form method="post" asp-page="/Create">
+    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()"/>
+    <div class="form-group">
+        <label asp-for="Todo.Title">Title</label>
+        <input asp-for="Todo.Title" class="form-control" />
+        <span asp-validation-for="Todo.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Todo.Description">Description</label>
+        <textarea asp-for="Todo.Description" class="form-control"></textarea>
+        <span asp-validation-for="Todo.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Todo.OwnerID">Description</label>
+        <input asp-for="Todo.OwnerID" class="form-control"></input>
+        <span asp-validation-for="Todo.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Todo.IsComplete">Is Complete?</label>
+        <input asp-for="Todo.IsComplete" type="checkbox"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
