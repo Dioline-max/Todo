@@ -82,8 +82,26 @@ section #signup {
 /* Login Start*/
 
 /* Create start*/
+#create .form-wrapper {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
 
 /* Display start*/
+
+#display .form-wrapper {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
 
 /* Details start*/
 

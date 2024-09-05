@@ -37,16 +37,31 @@ namespace Todo.Pages
             {
                 UserName = user.UserName;
             }
-            Todos = await _context.Todos.ToListAsync();
+            Todos = await _context.Todos.Where(t => t.OwnerID == user.Id).ToListAsync();
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(Guid id)
+        public async Task<IActionResult> OnPostDeleteAsync(string id)
         {
+            if(!ModelState.IsValid)
+            {
+                return StatusCode(500);
+            }
             var todo = await _context.Todos.FindAsync(id);
             _context.Todos.Remove(todo);
             await _context.SaveChangesAsync();
             return RedirectToPage("Display");
+        }
+
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (ModelState.IsValid)
+            {
+                await _signInManager.SignOutAsync();
+            }
+
+            return RedirectToPage("Login");
         }
 
     }

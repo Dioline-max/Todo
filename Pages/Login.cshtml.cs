@@ -47,7 +47,6 @@ namespace Todo.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var claims = User.Claims;
             var user = await _userManager.FindByEmailAsync(Input.Email);
             Console.Write(Input.Email);
             if (ModelState.IsValid)

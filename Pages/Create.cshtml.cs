@@ -30,11 +30,12 @@ namespace Todo.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(500);
-            }
+            // if(!ModelState.IsValid)
+            // {
+            //     return BadRequest(500);
+            // }
             var user = await _userManager.GetUserAsync(User);
+            // user.ToDos.Add(Todo);
             Todo.User = user;
             Todo.OwnerID = user.Id;
             Todo.CreatedAt = DateTime.UtcNow;
