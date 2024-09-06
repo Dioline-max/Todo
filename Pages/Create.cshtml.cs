@@ -42,19 +42,5 @@ namespace Todo.Pages
             return RedirectToPage("Display");
         }
 
-        public async Task<IActionResult> OnPostEdit(string id)
-        {
-            
-            var todo = _context.Todos.Find(id);
-            todo.Title = Todo.Title;
-            todo.Description = Todo.Description;
-            _context.Todos.Update(todo);
-            _context.SaveChanges();
-
-            return RedirectToPage("Create");
-
-
-        }
-
     }
 }

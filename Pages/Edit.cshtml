@@ -1,4 +1,4 @@
-@page
+@page "{id}"
 @using Todo.Infrastructure
 @model Todo.Pages.Edit;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -9,16 +9,16 @@
 <section id="create">
     <div class="form-wrapper">
         <h2> Edit Todo</h2>
-        <form method="post" asp-page="/Create">
+        <form method="post" asp-page="/Edit" asp-route-id = Todo.id>
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <div class="form-group">
                 <label asp-for="Todo.Title">Title</label>
-                <input asp-for="Todo.Title" class="form-control" />
+                <input asp-for="Todo.Title" class="form-control" value= "@Model.Todo.Title"/>
                 <span asp-validation-for="Todo.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Todo.Description">Description</label>
-                <textarea asp-for="Todo.Description" class="form-control"></textarea>
+                <textarea asp-for="Todo.Description" class="form-control">@Model.Todo.Description</textarea>
                 <span asp-validation-for="Todo.Description" class="text-danger"></span>
             </div>
             <div class="form-group">

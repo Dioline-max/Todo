@@ -24,40 +24,30 @@ namespace Todo.Pages
         }
 
         [BindProperty(SupportsGet = true)]
-        public ToDo Todo { get; set; } = new ToDo();
+        public ToDo Todo { get; set; }
 
 
-        public void OnGet(string id)
+        public IActionResult OnGet(string id)
         {
-            Todo =  _context.Todos.Find(id);
+            Todo = _context.Todos.Find(id);
+            if (Todo == null)
+            {
+                return BadRequest(500);
+            }
+            return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string id)
         {
 
-            var user = await _userManager.GetUserAsync(User);
-            // user.ToDos.Add(Todo);
-            Todo.User = user;
-            Todo.OwnerID = user.Id;
-            Todo.CreatedAt = DateTime.UtcNow;
-            Todo.UpdatedAt = DateTime.UtcNow;
-            await _context.Todos.AddAsync(Todo);
-            await _context.SaveChangesAsync();
-            return RedirectToPage("Display");
-        }
-
-        public async Task<IActionResult> OnPostEdit(string id)
-        {
-            
             var todo = _context.Todos.Find(id);
             todo.Title = Todo.Title;
             todo.Description = Todo.Description;
             _context.Todos.Update(todo);
             _context.SaveChanges();
 
-            return RedirectToPage("Create");
-
-
+            return RedirectToPage("Display");
         }
+
     }
 }
