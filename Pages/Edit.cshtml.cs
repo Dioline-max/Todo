@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,13 +10,13 @@ using Todo.Models;
 
 namespace Todo.Pages
 {
-    public class Create : PageModel
+    public class Edit : PageModel
     {
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
 
-        public Create(ApplicationDbContext context, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        public Edit(ApplicationDbContext context, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
         {
             _context = context;
             _signInManager = signInManager;
@@ -23,9 +27,9 @@ namespace Todo.Pages
         public ToDo Todo { get; set; } = new ToDo();
 
 
-        public void OnGet()
+        public void OnGet(string id)
         {
-
+            Todo =  _context.Todos.Find(id);
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -55,6 +59,5 @@ namespace Todo.Pages
 
 
         }
-
     }
 }

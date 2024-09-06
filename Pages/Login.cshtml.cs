@@ -47,13 +47,13 @@ namespace Todo.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await _userManager.FindByEmailAsync(Input.Email);
-            Console.Write(Input.Email);
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await _signInManager.SignInAsync(user, isPersistent:false);
+                return StatusCode(500);
             }
-
+            var user = await _userManager.FindByEmailAsync(Input.Email);
+            Console.WriteLine(user.UserName);
+            await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToPage("Display");
         }
     }

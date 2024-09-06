@@ -26,8 +26,8 @@
                         <td>@todo.Description</td>
                         <td>@(todo.IsComplete ? "Yes" : "No")</td>
                         <td>
-                            <form method="post" asp-page-handler="Delete" asp-route-id="@todo.Id">
-                                <button asp-page="EditToDo" asp-route-id="@todo.Id" class="btn btn-secondary">Edit</button>
+                            <form method="post" asp-route-id="@todo.Id" asp-page="Edit">
+                                <button asp-page="Create" asp-route-id="@todo.Id" class="btn btn-info">Edit</button>
                             </form>
                         </td>
                         <td>
@@ -36,7 +36,7 @@
                             </form>
                         </td>
                         <td>
-                            <form method="post" asp-route-id="@todo.Id">
+                            <form method="post" asp-route-id="@todo.Id" >
                                 <button asp-page="EditToDo" asp-route-id="@todo.Id" class="btn btn-success">Done</button>
                             </form>
                         </td>
